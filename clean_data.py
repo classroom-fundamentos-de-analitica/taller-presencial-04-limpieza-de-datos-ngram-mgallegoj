@@ -2,16 +2,13 @@
 
 import pandas as pd
 
-
 def load_data(input_file):
     """Lea el archivo usando pandas y devuelva un DataFrame"""
     df = pd.read_csv(input_file)
     return df
 
-
 def create_key(df, n):
     """Cree una nueva columna en el DataFrame que contenga el key de la columna 'text'"""
-
     df = df.copy()
     df["key"] = df["text"]
     df["key"] = df["key"].str.strip()
@@ -28,7 +25,6 @@ def create_key(df, n):
     df["key"] = df["key"].str.join("")
     return df
 
-
 def generate_cleaned_column(df):
     """Crea la columna 'cleaned' en el DataFrame"""
     df = df.copy()
@@ -38,14 +34,12 @@ def generate_cleaned_column(df):
     df["cleaned"] = df["key"].map(key_dict)
     return df
 
-
 def save_data(df, output_file):
     """Guarda el DataFrame en un archivo"""
     df = df.copy()
     df = df[["cleaned"]]
     df = df.rename(columns={"cleaned": "text"})
     df.to_csv(output_file, index=False)
-
 
 def main(input_file, output_file, n=2):
     """Ejecuta la limpieza de datos"""
@@ -54,7 +48,6 @@ def main(input_file, output_file, n=2):
     df = generate_cleaned_column(df)
     df.to_csv("test.csv", index=False)
     save_data(df, output_file)
-
 
 if __name__ == "__main__":
     main(
